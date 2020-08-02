@@ -16,9 +16,6 @@ cleanup() {
 cd "$(dirname "$0")"
 HOOK_DIR=$(pwd)
 echo "[*] Working in: ${HOOK_DIR}"
-git clone https://github.com/bitxer/deployhook-test-github.git /tmp/test-github
-git clone https://gitlab.com/bitxer/deployhook-test-gitlab.git /tmp/test-gitlab
-export REPO_CONFIG_FILE=tests/config.ini
 
 while getopts tcrd: OPTION; do
     case "${OPTION}" in
@@ -76,8 +73,11 @@ if [[ -z "${TESTING}" ]]; then
         fi
     fi
 
+    git clone https://github.com/bitxer/deployhook-test-github.git /tmp/test-github
+    git clone https://gitlab.com/bitxer/deployhook-test-gitlab.git /tmp/test-gitlab
     mkdir -p ./APPDATA/dev/logs
 
+    export REPO_CONFIG_FILE=dev.ini
     export LOG_FOLDER=${HOOK_DIR}/APPDATA/dev/logs
 
     if [[ ! -d ./APPDATA/dev/venv ]]; then
@@ -95,6 +95,9 @@ if [[ -z "${TESTING}" ]]; then
     rm -rf ./APPDATA/dev/cache/*
     cleanup
 else
+    rm -rf ./APPDATA/tests/test-*
+    git clone https://github.com/bitxer/deployhook-test-github.git ./APPDATA/tests/test-github
+    git clone https://gitlab.com/bitxer/deployhook-test-gitlab.git ./APPDATA/tests/test-gitlab
     # Run tests.
     echo "[+] Running Tests."
     echo ""
@@ -104,6 +107,7 @@ else
     fi
     mkdir -p ./APPDATA/tests/logs
 
+    export REPO_CONFIG_FILE=tests/config.ini
     export LOG_FOLDER=${HOOK_DIR}/APPDATA/tests/logs
     if [[ ! -d ./APPDATA/tests/venv ]]; then
         virtualenv -p python3 ./APPDATA/tests/venv
