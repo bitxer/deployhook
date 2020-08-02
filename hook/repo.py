@@ -39,7 +39,7 @@ class Repo:
         if action == 'script':
             if script is None:
                 raise ValueError('Script not specified for {}'.format(name))
-            elif not isabs(script):
+            elif not app.config['TESTING'] and not isabs(script):
                 raise ValueError(
                     'Script for {} is not a absolute path'.format(name))
 
