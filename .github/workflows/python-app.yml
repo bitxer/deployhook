@@ -1,0 +1,41 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v28
+    - name: Checkout github test repo
+      uses: actions/checkout@v28
+      with:
+        repository: bitxer/deployhook-test-github
+        ref: '40cffd44b19855538bfce739fb5900f7420899ac'
+        path: '/tmp/test-github'
+    - name: Checkout gitlab test repo
+      run: |
+        git clone https://gitlab.com/bitxer/deployhook-test-gitlab.git /tmp/test-gitlab
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        mkdir -p ./APPDATA/tests/logs
+        python -m pip install --upgrade pip
+        pip install pytest
+        pip install -r requirements.txt
+    - name: Run test
+      run: pytest
+      env:
+        REPO_CONFIG_FILE: tests/config.ini
+        REVERSEPROXY: no
+        SECURE: no
+        TZ: Asia/Singapore
+        LOG_FOLDER: ./APPDATA/tests/logs
