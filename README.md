@@ -1,5 +1,5 @@
 # deployhook
-![build](https://github.com/bitxer/deployhook/workflows/Deployhook%20test/badge.svg)
+![deployhook](https://github.com/bitxer/deployhook/workflows/deployhook/badge.svg)
 
 ## Repo Config File
 The application makes use of INI config files. The following table details the keys available and their details
