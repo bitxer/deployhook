@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v28
+    - uses: actions/checkout@v2
     - name: Checkout github test repo
-      uses: actions/checkout@v28
+      uses: actions/checkout@v2
       with:
         repository: bitxer/deployhook-test-github
         ref: '40cffd44b19855538bfce739fb5900f7420899ac'
