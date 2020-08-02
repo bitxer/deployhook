@@ -51,8 +51,7 @@ class Repo:
             self.ssh_cmd = 'ssh'
 
         self.branch = branch
-        if self.repo.active_branch.name != self.branch:
-            self.repo.git.checkout('-B', self.branch)
+        self.repo.git.checkout('-B', self.branch)
         self.__update()
 
         self.secret = secret
