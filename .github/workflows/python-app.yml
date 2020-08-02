@@ -1,4 +1,4 @@
-name: Deployhook test
+name: deployhook
 
 on: 
   push:
