@@ -1,4 +1,5 @@
 from git import Repo as GitRepo
+from flask import current_app as app
 from configparser import ConfigParser
 from os.path import isfile, isabs
 from subprocess import run
