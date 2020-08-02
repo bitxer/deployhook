@@ -113,7 +113,7 @@ else
     . ./APPDATA/tests/venv/bin/activate
     python3 -m pip install --no-cache-dir -r ./requirements.txt | grep -v "Requirement already satisfied"
 
-    nose2 -v -s tests/ -t .
+    pytest
 
     # Delete cache.
     echo "[*] Cleaning cache..."
